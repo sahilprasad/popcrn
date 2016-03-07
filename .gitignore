@@ -1,0 +1,37 @@
+# Byte-compiled
+*.pyc
+
+# PyCharm Projects
+.idea/*
+
+# Sublime Text
+*.sublime*
+
+# Distribution / packaging
+.Python
+env/
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+docs/_build
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+junit.xml
+
+
