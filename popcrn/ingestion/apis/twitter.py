@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 API_BASE_URL = "https://api.twitter.com/1.1/{}"
 USER_PROFILE_URL = API_BASE_URL.format("users/show.json")
+TWEETS_URL = API_BASE_URL.format("statuses/user_timeline.json")
 
 env = os.environ
 
@@ -30,15 +31,24 @@ class Twitter(BaseOAuth):
             "user_id": user_id,
         }
 
-        for k, v in kwargs:
+        for k, v in kwargs.iteritems():
             params[k] = v
 
         content = self.request(USER_PROFILE_URL, params=params)
         return content
 
-    def get_profile_tweets(self, user_id=None):
-        if not user_id:
-            logger.error("Twitter: user_id not provided.")
+    def get_profile_tweets(self, user_id=None, screen_name=None, **kwargs):
+        if not user_id and not screen_name:
+            logger.error("Twitter: either user_id or screen_name must be provided.")
             return []
 
-        # TODO: implement tweet retrieval
+        params = {
+            "user_id": user_id,
+            "screen_name": screen_name
+        }
+
+        for k, v in kwags.iteritems():
+            params[k] = v
+
+        content = self.request(TWEETS_URL, params=params)
+        return content
