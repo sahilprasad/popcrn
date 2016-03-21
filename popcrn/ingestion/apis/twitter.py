@@ -43,8 +43,8 @@ class Twitter(BaseOAuth):
             return []
 
         params = {
+            "screen_name": screen_name,
             "user_id": user_id,
-            "screen_name": screen_name
         }
 
         for k, v in kwags.iteritems():

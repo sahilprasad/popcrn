@@ -9,7 +9,10 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 requires = [
+    'alembic',
+    'celery',
     'oauth2',
+    'pymysql',
     'pyramid',
     'pyramid_chameleon',
     'pyramid_debugtoolbar',

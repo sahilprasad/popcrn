@@ -17,6 +17,6 @@ class Tweet(Base):
     __tablename__ = 'tweet'
     tweet_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, index=True)
-    user_screen_name = Column(String)
+    user_screen_name = Column(String(100))
     created = Column(DateTime, nullable=False)
-    url = Column(String, nullable=False)
+    url = Column(String(100), nullable=False, unique=True)
