@@ -6,7 +6,7 @@ Popcrn is a project being developed for the final project of CS1951A - Data Scie
 
 ## Progress
 
-Currently, Popcrn has the majority of the ingestion capabilities, but lacks the sentiment analysis algorithms that will ultimately be used to generate the sentiment mapping.
+Currently, Popcrn has the majority of the ingestion capabilities, but lacks the sentiment analysis algorithms that will ultimately be used to generate the sentiment mapping. To achieve that, the application's ingestion will need to be expanded to handle lyrical data, after which the dataset will be ready for analysis.
 
 ## Setup
 

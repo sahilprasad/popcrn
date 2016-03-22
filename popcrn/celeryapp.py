@@ -1,7 +1,12 @@
 import os
 import logging
 
-from popcrn.models import DBSession
+from datetime import datetime
+
+from popcrn.models import (
+    DBSession,
+    Tweet
+)
 
 from ConfigParser import SafeConfigParser
 
@@ -89,7 +94,7 @@ class HarvestTask(Task):
                 tweet_id=tweet.tweet_id,
                 user_id=tweet.user_id,
                 user_screen_name=tweet.user_screen_name,
-                url=tweet.url
+                text=tweet.text
             )
             self.db.add(tweet_record)
             self.info("STORING tweet_record: {}".format(tweet_record))
