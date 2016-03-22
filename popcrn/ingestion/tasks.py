@@ -4,7 +4,7 @@ from popcrn.celeryapp import (
 )
 
 from popcrn.models import Tweet
-from popcrn.util.tasks_utils import (
+from popcrn.util.task_utils import (
     parse_tweet_datetime,
     validate_tweet_json
 )
