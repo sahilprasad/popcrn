@@ -19,4 +19,4 @@ class Tweet(Base):
     user_id = Column(Integer, index=True)
     user_screen_name = Column(String(100))
     created = Column(DateTime, nullable=False)
-    url = Column(String(100), nullable=False, unique=True)
+    text = Column(String(150), nullable=False)
