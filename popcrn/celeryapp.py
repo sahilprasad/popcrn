@@ -107,9 +107,6 @@ class HarvestTask(Task):
 
     def persist_tweets_json(self, tweets=[]):
         for tweet_json in tweets:
-            print
-            print "ASASHNANNNNNNNNNNNN"
-            print tweet_json
             tweet = json.loads(tweet_json)
             if validate_tweet_json(tweet):
                 tweet_id = tweet["id"]
