@@ -47,7 +47,7 @@ class Twitter(BaseOAuth):
             "user_id": user_id,
         }
 
-        for k, v in kwags.iteritems():
+        for k, v in kwargs.iteritems():
             params[k] = v
 
         content = self.request(TWEETS_URL, params=params)

@@ -22,7 +22,7 @@ class BaseOAuth(object):
         self.access_token = access_token
         self.access_token_secret = access_token_secret
 
-    def request(self, url, method="GET", params={}, body={}, headers={}):
+    def request(self, url, method="GET", params={}, body='', headers=''):
         if not self.consumer_key or not self.consumer_secret or not self.access_token or not self.access_token_secret:
             message = "BaseOAuth: Required parameters not provided."
             logger.error(message)
@@ -36,14 +36,13 @@ class BaseOAuth(object):
         if url[-1] != '?':
             _url += '?'
 
-        url += '&'.join(map(lambda x: "{}={}".format(x, params[x]), params.keys()))
+        _url += '&'.join(map(lambda x: "{}={}".format(x, params[x]), params.keys()))
+        url = _url
         
         logger.info("{}: {}, Body: {}, Headers: {}".format(method, url, body, headers))
         resp, content = client.request(url, method=method, body=body,
             headers=headers)
 
-        logger.info("Response: {}".format(resp._content))
-
-        resp.raise_for_status()
+        logger.info("Response: {}".format(content))
 
         return content
