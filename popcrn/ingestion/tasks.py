@@ -17,10 +17,13 @@ logger = logging.getLogger(__name__)
 
 twitter = Twitter()
 
+TWEET_FETCH_SIZE = 50
+
 @app.task(base=HarvestTask, bind=True, ignore_result=True, rate_limit='5/m')
 def import_user_tweets(self, user_id=None, screen_name=None, **kwargs):
     tweet_json = twitter.get_user_tweets(user_id=user_id, screen_name=screen_name,
-        **kwargs)
+        include_rts=False, exclude_replies=True, count=TWEET_FETCH_SIZE, **kwargs)
+
     tweets = []
     for tweet in tweet_json:
         if (validate_tweet_json(tweet)):
@@ -33,3 +36,5 @@ def import_user_tweets(self, user_id=None, screen_name=None, **kwargs):
             ))
 
             self.persist_tweet(tweet)
+
+    return tweets

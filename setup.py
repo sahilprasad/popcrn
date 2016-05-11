@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
@@ -18,7 +18,7 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'requests[security]',
-    'SQLAlchemy',
+    'SQLAlchemy==1.0.8',
     'spotipy',
     'transaction',
     'zope.sqlalchemy',

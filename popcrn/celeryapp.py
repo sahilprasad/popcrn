@@ -1,10 +1,14 @@
 import os
 import logging
 
+import json
+
+import ast
+
 from datetime import datetime
 
 from popcrn.models import (
-    DBSession,
+    RawSession,
     Tweet
 )
 
@@ -28,7 +32,7 @@ DB_URL = settings.get("app:main", "sqlalchemy.url")
 def bootstrap_pyramid(signal, sender):
     pass
 
-CELERY_CONFIG = "popcrn.celeryconfig"
+CELERY_CONFIG = "celeryconfig"
 
 app = Celery()
 app.config_from_object(CELERY_CONFIG)
@@ -85,23 +89,40 @@ class HarvestTask(Task):
         return query.all()
 
     def persist_tweet(self, tweet):
+        if isinstance(tweet, basestring):
+            tweet = json.loads(tweet)
         logger.info("PERSISTING tweet: {}".format(tweet.tweet_id))
         existing_tweet = self.db.query(Tweet).filter(Tweet.tweet_id == tweet.tweet_id).first()
 
         if not existing_tweet:
-            tweet_record = Tweet(
-                created=datetime.utcnow(),
-                tweet_id=tweet.tweet_id,
-                user_id=tweet.user_id,
-                user_screen_name=tweet.user_screen_name,
-                text=tweet.text
-            )
-            self.db.add(tweet_record)
-            self.info("STORING tweet_record: {}".format(tweet_record))
+            self.db.add(tweet)
+            self.info("STORING tweet_record: {}".format(tweet))
             self.commit()
         else:
             logger.info("NOT PERSISTING tweet: {}. Already ingested.".format(tweet.tweet_id))
 
     def persist_tweets(self, tweets=[]):
         for tweet in tweets:
-            persist_tweet(tweet)
+            self.persist_tweet(tweet)
+
+    def persist_tweets_json(self, tweets=[]):
+        for tweet_json in tweets:
+            print
+            print "ASASHNANNNNNNNNNNNN"
+            print tweet_json
+            tweet = json.loads(tweet_json)
+            if validate_tweet_json(tweet):
+                tweet_id = tweet["id"]
+
+                existing_tweet = self.db.query(Tweet).filter(Tweet.tweet_id == tweet_id).first()
+                if not existing_tweet:
+                    record = Tweet(
+                        tweet_id=tweet["id"],
+                        user_id=tweet["user"]["id"],
+                        user_screen_name=tweet["user"]["screen_name"],
+                        created=parse_tweet_datetime(tweet["created_at"]),
+                        text=tweet["text"]
+                    )
+                    self.db.add(record)
+                    self.info("STORING tweet: {}",format(record))
+                    self.commit()

@@ -1,5 +1,7 @@
 from kombu import Queue
 
+import os
+
 _BROKER_USER = os.environ.get('BROKER_USER', os.environ.get('ENV_BROKER_USER', 'guest'))
 _BROKER_PASSWORD = os.environ.get('BROKER_PASSWORD', os.environ.get('ENV_BROKER_PASSWORD', 'guest'))
 _BROKER_HOST = os.environ.get('BROKER_HOST', os.environ.get('ENV_BROKER_HOST', 'localhost'))
