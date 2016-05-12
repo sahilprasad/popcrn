@@ -9,8 +9,10 @@ a, a:visited {
 #container {
   padding-top:20px !important;
   width: 980px !important;
-  border-left: 2px #ddd solid !important;
-  border-right: 2px #ddd solid !important;
+}
+
+li {
+    font-size: 14px !important;
 }
 
 header {

@@ -61,7 +61,7 @@ body {
 	background-size: contain;
 	z-index:-5;
 	color: white;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	font-family: 'Monoton', monospace;
 	font-size: 2em;
 }
