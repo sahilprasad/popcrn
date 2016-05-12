@@ -6,9 +6,12 @@
         <title>popcrn.</title>
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
         <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../static/css/map.css">
+        <link href="../../static/css/style.css" rel="stylesheet">
+        <link href="../../static/css/reset.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="../../static/js/modernizr-2.0.6.min.js"></script>
 
         <style>
         text {
@@ -43,6 +46,20 @@
             margin-bottom: 20px;
             border: 1px solid transparent;
         }
+        body {
+      font-family:"Lucida Grande","Droid Sans",Arial,Helvetica,sans-serif;
+          }
+          .legend {
+              border: 1px solid #555555;
+              border-radius: 5px 5px 5px 5px;
+              font-size: 0.8em;
+              margin: 10px;
+              padding: 8px;
+          }
+          .bld {
+              font-weight: bold;
+          }
+
 
           </style>
     </head>
@@ -61,29 +78,35 @@
          </div>
          <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav">
-             <li class="active"><a href="#">Map</a></li>
-             <li><a href="wordcloud.html">Word Cloud</a></li>
+             <li><a href="index.html">Map</a></li>
+             <li class="active"><a href="#">Word Cloud</a></li>
            </ul>
          </div><!--/.nav-collapse -->
        </div>
      </nav>
 
- <div class="container">
+     <div id="container" class="container">
+      <select id="text-select">
+        <option value="deadpool">Deadpool</option>
+        <option value="apple">Apple</option>
+        <option value="datascience">Data Science</option>
+      </select>
+    <header>
+    <h1>Word Cloud</h1>
+    <h2>Most impactful words on sentiment</h2>
+      <h2 id="topic-title"></h2>
+    </header>
+    <div id="main" role="main">
+      <div id="vis"></div>
 
-     <div id="map"></div>
+  </div> <!--! end of #container -->
 
- </div> <!-- /container -->
-
-
-        <!-- /.container -->
-        <!--  -->
-
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+  <script defer src="../../static/js/plugins.js"></script>
         <script src="http://d3js.org/d3.v3.min.js" ></script>
-        <script src="../../static/vendor/d3.geomap.dependencies.min.js" ></script>
-        <script src="../../static/js/d3.geomap.min.js" ></script>
-        <script src="../../static/js/map.js" ></script>
+        <script src="../../static/js/wordbubble.js" ></script>
         <script src="../../static/js/bootstrap.min.js"></script>
-        <script src="../../static/js/jquery.particleground.js"></script>
-        <script src="../../static/js/starfield.js"></script>
+        <script type="text/javascript">
+        </script>
     </body>
 </html>
