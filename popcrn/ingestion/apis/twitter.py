@@ -4,6 +4,8 @@ from base import BaseOAuth
 
 import logging
 
+import json
+
 logger = logging.getLogger(__name__)
 
 API_BASE_URL = "https://api.twitter.com/1.1/{}"
@@ -51,4 +53,4 @@ class Twitter(BaseOAuth):
             params[k] = v
 
         content = self.request(TWEETS_URL, params=params)
-        return content
+        return json.loads(content)

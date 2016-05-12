@@ -38,11 +38,9 @@ class BaseOAuth(object):
 
         _url += '&'.join(map(lambda x: "{}={}".format(x, params[x]), params.keys()))
         url = _url
-        
+
         logger.info("{}: {}, Body: {}, Headers: {}".format(method, url, body, headers))
         resp, content = client.request(url, method=method, body=body,
             headers=headers)
-
-        logger.info("Response: {}".format(content))
 
         return content
