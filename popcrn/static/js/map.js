@@ -1,12 +1,12 @@
 var format = function(d) {
-    d = d / 1000000;
-    return d3.format(',.02f')(d) + 'M';
+
+    return d3.format('1f')(d);
 }
 
 var map = d3.geomap.choropleth()
     .geofile('../../static/topojson/world/countries.json')
     .colors(colorbrewer.RdPu[9])
-    .column('YR2010')
+    .column('sentiment')
     .format(format)
     .legend(true)
     .unitId('Country Code');

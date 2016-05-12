@@ -3,14 +3,14 @@ body {
 }
 
 a, a:visited {
-  color:#333;
+  color:#333 !important;
 }
 
 #container {
-  padding-top:20px;
-  width: 980px;
-  border-left: 2px #ddd solid;
-  border-right: 2px #ddd solid;
+  padding-top:20px !important;
+  width: 980px !important;
+  border-left: 2px #ddd solid !important;
+  border-right: 2px #ddd solid !important;
 }
 
 header {
@@ -95,4 +95,3 @@ footer p {
   padding-bottom:20px;
   font: 13px sans-serif;
 }
-
