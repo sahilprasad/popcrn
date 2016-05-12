@@ -43,6 +43,20 @@
             margin-bottom: 20px;
             border: 1px solid transparent;
         }
+        body {
+      font-family:"Lucida Grande","Droid Sans",Arial,Helvetica,sans-serif;
+          }
+          .legend {
+              border: 1px solid #555555;
+              border-radius: 5px 5px 5px 5px;
+              font-size: 0.8em;
+              margin: 10px;
+              padding: 8px;
+          }
+          .bld {
+              font-weight: bold;
+          }
+
 
           </style>
     </head>
@@ -61,8 +75,8 @@
          </div>
          <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav">
-             <li class="active"><a href="#">Map</a></li>
-             <li><a href="wordcloud.html">Word Cloud</a></li>
+             <li><a href="index.html">Map</a></li>
+             <li class="active"><a href="#">Word Cloud</a></li>
            </ul>
          </div><!--/.nav-collapse -->
        </div>
@@ -70,7 +84,22 @@
 
  <div class="container">
 
-     <div id="map"></div>
+     <select id="text-select">
+             <option value="sherlock">Sherlock Holmes</option>
+             <option value="aesop">Aesop's Fables</option>
+             <option value="alice">Alice in Wonderland</option>
+             <option value="gulliver">Gulliver's Travels</option>
+           </select>
+         <header>
+         <h1>Bubble Cloud</h1>
+         <h2>The most frequently used words in:</h2>
+           <h2 id="book-title"></h2>
+         </header>
+         <div id="main" role="main">
+           <div id="vis"></div>
+           <div id="status"></div>
+
+         </div>
 
  </div> <!-- /container -->
 
@@ -81,9 +110,10 @@
         <script src="http://d3js.org/d3.v3.min.js" ></script>
         <script src="../../static/vendor/d3.geomap.dependencies.min.js" ></script>
         <script src="../../static/js/d3.geomap.min.js" ></script>
-        <script src="../../static/js/map.js" ></script>
+        <script src="../../static/js/wordcloud.js" ></script>
         <script src="../../static/js/bootstrap.min.js"></script>
         <script src="../../static/js/jquery.particleground.js"></script>
         <script src="../../static/js/starfield.js"></script>
+        <script src="../../static/js/d3.layout.cloud.js"></script>
     </body>
 </html>
