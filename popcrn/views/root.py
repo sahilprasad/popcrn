@@ -30,7 +30,3 @@ def root_view(request):
 
     result = twitter.get_profile_tweets(user_id=user_id, screen_name=screen_name)
     return Response(json.dumps(result))
-
-@view_config(renderer="json")
-def async_main(request):
-    pass
