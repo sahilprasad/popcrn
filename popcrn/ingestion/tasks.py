@@ -14,6 +14,8 @@ from popcrn.util.task_utils import (
     validate_tweet_json
 )
 
+import urllib
+
 from popcrn.ingestion.apis.twitter import Twitter
 from datetime import datetime
 
@@ -29,16 +31,17 @@ TWEET_FETCH_SIZE = 50
 
 @app.task(base=HarvestTask, bind=True, ignore_result=True, rate_limit='1/m')
 def geo_harvest(self, user_id):
-    obj = self.db.query(User).filter(User.user_id == int(user_id)).first()
+    obj = self.db.query(User).filter(User.user_id == user_id).first()
     if not obj:
         logger.error("Geo harvest did not found user in database: {}".format(user_id))
         return
 
     if not obj.location:
-        logger.error("Geo harvest did not find a location to search the Twitter API for.")
+        logger.error("Geo harvest did not find a location to search the " +
+            " Twitter API for: loc: {}, user_id: {}".format(obj.location, user_id))
         return
 
-    resp = twitter.get_country_code(query=obj.location, granularity="country", max_results=1)
+    resp = twitter.get_country_code(query=urllib.quote_plus(obj.location), granularity="country", max_results=1)
     if not resp.get("result") and not resp["result"].get("country_code"):
         logger.error("Could not find country_code attribute for user_id {}: {}".format(user_id, resp))
     else:
@@ -82,6 +85,25 @@ def topic_harvest(self, topic=None):
             self.persist_tweet(tweet)
 
     return tweets
+
+@app.task(base=HarvestTask, bind=True, ignore_result=True)
+def raw_tweet_harvest(self, topic=None):
+    tweet_json = twitter.get_topic_tweets(topic=topic, include_rts=False,
+        exclude_replies=True, count=100)
+
+    tweets = []
+    for tweet in tweet_json["statuses"]:
+        logger.info("Examining tweet: {}".format(tweet))
+        if validate_tweet_json(tweet):
+            Tweet(
+                tweet_id=tweet["id"],
+                text=tweet["text"],
+                user_screen_name=tweet["user"]["screen_name"],
+                user_id=tweet["user"]["id"],
+                created=parse_tweet_datetime(tweet["created_at"])
+            )
+
+            self.persist_tweet(tweet)
 
 @app.task(base=HarvestTask, bind=True, ignore_result=True, rate_limit='5/m')
 def import_user_tweets(self, user_id=None, screen_name=None, **kwargs):

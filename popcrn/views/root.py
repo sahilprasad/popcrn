@@ -26,7 +26,8 @@ def root_view(request):
     if not user_id and not screen_name:
         logger.error("BAD REQUEST: {}".format(request))
         logger.error("PARAMS: {}".format(request.params))
-        return HTTPBadRequest("Invalid request parameters provided. One of 'user_id' or 'screen_name' must be provided.")
+        return HTTPBadRequest("Invalid request parameters provided. " +
+            "One of 'user_id' or 'screen_name' must be provided.")
 
     result = twitter.get_profile_tweets(user_id=user_id, screen_name=screen_name)
     return Response(json.dumps(result))

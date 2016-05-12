@@ -17,24 +17,25 @@ mapping = Table(
     'association', Base.metadata,
     Column(
         'tweet_id',
-        BigInteger,
+        String(50),
         ForeignKey('tweet.tweet_id')
     ),
     Column(
         'sentiment_id',
-        BigInteger,
+        String(50),
         ForeignKey('sentiment.sentiment_id')
     )
 )
 
 class Tweet(Base):
     __tablename__ = 'tweet'
-    tweet_id = Column(BigInteger, primary_key=True)
-    # user_id = Column(BigInteger, index=True)
+    tweet_id = Column(String(50), primary_key=True)
+    # user_id = Column(String(50), index=True)
     user_screen_name = Column(String(100))
     created = Column(DateTime, nullable=False)
     text = Column(String(150), nullable=False)
 
+    topic = Column(String(50), index=True)
     sentiment = Column(String(10))
 
     max_sentiment_word = Column(String(150))
@@ -48,11 +49,11 @@ class Tweet(Base):
         back_populates="tweets"
     )
 
-    user_id = Column(BigInteger, ForeignKey('user.user_id'))
+    # user_id = Column(BigInteger, ForeignKey('user.user_id'))
 
 class Sentiment(Base):
     __tablename__ = 'sentiment'
-    sentiment_id = Column(BigInteger, primary_key=True)
+    sentiment_id = Column(String(50), primary_key=True)
     created = Column(DateTime, nullable=False)
     topic = Column(String(100), nullable=False, index=True)
     value = Column(String(100))
@@ -64,9 +65,9 @@ class Sentiment(Base):
 
 class User(Base):
     __tablename__ = 'user'
-    user_id = Column(BigInteger, primary_key=True)
+    user_id = Column(String(50), primary_key=True)
     created = Column(DateTime, nullable=False)
     location = Column(String(100))
     country_code = Column(String(10), default="US")
 
-    tweets = relationship('Tweet', backref="user")
+    # tweets = relationship('Tweet', backref="user")
