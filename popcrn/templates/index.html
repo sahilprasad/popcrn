@@ -6,19 +6,44 @@
         <title>popcrn.</title>
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/style.css">
+        <style>
+        text {
+          fill: #333;
+          font-size: 20px; }
 
-        <script src="js/d3.js"></script>
-        <script src="js/d3.hexbin.v0.min.js?5c6e4f0"></script>
-        <script src="js/jquery.js"></script>
-        <script src="js/id3-minimized.js"></script>
-        <script src="js/main.js"></script>
-        <script src="//connect.soundcloud.com/sdk.js"></script>
+        .background {
+          fill: none;
+          pointer-events: all; }
+
+        .unit {
+          cursor: pointer;
+          fill: #ccc;
+          stroke: #000;
+          stroke-width: 0.4px; }
+
+        .legend-bg {
+          fill: #fff;
+          fill-opacity: 0.8; }
+
+        .legend-bar {
+          stroke: #333;
+          stroke-width: 1px; }
+
+          .map {
+              width: 100 %;
+          }
+          </style>
     </head>
 
     <body>
+        <div id="map"></div>
 
+        <script src="http://d3js.org/d3.v3.min.js" ></script>
+        <script src="../static/vendor/d3.geomap.dependencies.min.js" ></script>
+        <script src="../static/js/d3.geomap.min.js" ></script>
+        <script src="../static/js/map.js" ></script>
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
