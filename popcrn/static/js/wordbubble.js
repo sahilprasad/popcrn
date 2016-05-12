@@ -234,11 +234,11 @@
       name: "Deadpool"
     }, {
       key: "apple",
-      file: "../../static/data/apple.csv",
+      file: "../../../static/data/apple.csv",
       name: "Apple"
     }, {
       key: "datascience",
-      file: "../../static/data/data_science.csv",
+      file: "../../../static/data/data_science.csv",
       name: "Data Science"
     }
   ];

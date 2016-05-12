@@ -18,14 +18,14 @@ header {
 }
 
 #book-title {
-  font-family: georgia, "times new roman", times, serif;
-  color: #555;
+  color: white;
   font-size: 2.3em;
   text-align: center;
 }
 
 #text-select {
   float:right;
+  color:white;
   margin-right: 10px;
 }
 
@@ -51,30 +51,29 @@ header {
 }
 
 .bubble-node {
-  /* fill: #d1e0f3; */
-  fill: #DCE9BE;
+  fill: #fe5b8d;
+  color:white;
 }
 
 .bubble-hover {
-  /* fill: #b8c7d9; */
-  fill: #E8E9E7;
+  fill: #47e8b8;
+  color:white;
 }
 
 .bubble-selected {
-  /* fill: #a8c8ee;  */
-  fill: #CEE98F;
-  /* stroke: #6081a3; */
-  stroke: #A6BA92;
+  fill: #720d5e;
+  stroke: #7b0b59;
   stroke-width: 1.5px;
+  color:white;
 }
 
 .active {
-  color: #A6BA92
+  color: #7b0b59
+  color:white;
 }
 
 a.bubble-label {
-  font-family: georgia, "times new roman", times, serif;
-  color: inherit;
+  color: white;
   cursor: pointer;
   display: block;
   text-align: center;
@@ -87,11 +86,15 @@ a.bubble-label {
 .bubble-label .bubble-label-value {
   font: 11px sans-serif;
   white-space: nowrap;
+  color:white;
+}
+
+.bubble-label-name {
+    color:white;
 }
 
 footer p {
   text-align: center;
   padding-top:20px;
   padding-bottom:20px;
-  font: 13px sans-serif;
 }
