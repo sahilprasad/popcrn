@@ -6,7 +6,9 @@
         <title>popcrn.</title>
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../static/css/popcrn.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
         <style>
         text {
@@ -38,12 +40,53 @@
     </head>
 
     <body>
-        <div id="map"></div>
+
+
+        <div class="container-fluid" id="starfield">
+
+        <div id="overlay">
+            <img src="../static/imgs/popcrn-logo.png" class="centered-top" id="logo"/>
+            <div class="centered-top" id="subline">Visualize twitter topics by sentiment and location.</div>
+            <div class="centered-bottom" id="input">
+            <input type = "text"
+               id = "txtSearch"
+               placeholder="search twitter"
+               onkeydown = "if (event.keyCode == 13)
+                            document.getElementById('btnSearch').click()"
+            />
+
+            <input type = "button"
+                   id = "btnSearch"
+                   value = "Search"
+                   onclick = "doSomething();"
+            />
+            </div>
+
+        </div>
+        <div id="hey"><div id="layer-up"></div></div>
+        <div id="layer-0">
+
+        	<div id="layer-1">
+        		<div id="layer-2">
+        			<div id="lines">
+        				<div id="layer-corner"></div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+
+
+        </div>
+
+        <!-- /.container -->
+        <!--  -->
 
         <script src="http://d3js.org/d3.v3.min.js" ></script>
         <script src="../static/vendor/d3.geomap.dependencies.min.js" ></script>
         <script src="../static/js/d3.geomap.min.js" ></script>
         <script src="../static/js/map.js" ></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/jquery.particleground.js"></script>
+        <script src="../static/js/starfield.js"></script>
     </body>
 </html>
