@@ -44,14 +44,25 @@ class Tweet(Base):
         back_populates="tweets"
     )
 
+    user_id = Column(Integer, ForeignKey('user.user_id'))
+
 class Sentiment(Base):
     __tablename__ = 'sentiment'
     sentiment_id = Column(Integer, primary_key=True)
     created = Column(DateTime, nullable=False)
-    topic = Column(String(100), nullable=False)
+    topic = Column(String(100), nullable=False, index=True)
     value = Column(String(100))
 
     tweets = relationship(
         "Tweet",
         secondary=mapping,
         back_populates="sentiments")
+
+class User(Base):
+    __tablename__ = 'user'
+    user_id = Column(Integer, primary_key=True)
+    created = Column(DateTime, nullable=False)
+    location = Column(String(100))
+    country_code = Column(String(10), nullable=False, default="US")
+
+    tweets = relationship('tweets')

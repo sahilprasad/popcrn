@@ -7,6 +7,7 @@ from models import (
 )
 
 from views.root import root_view
+from views.hashtag_enqueue import enqueue_topic
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -19,5 +20,7 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('tweets', '/tweets')
     config.add_view(root_view, 'tweets')
-    config.scan()
+    config.add_route('topic', '/topic')
+    config.add_view(enqueue_topic, 'topic')
+    # config.scan()
     return config.make_wsgi_app()
