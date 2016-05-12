@@ -6,11 +6,15 @@ import logging
 
 import json
 
+import urllib
+
 logger = logging.getLogger(__name__)
 
 API_BASE_URL = "https://api.twitter.com/1.1/{}"
+
 USER_PROFILE_URL = API_BASE_URL.format("users/show.json")
 TWEETS_URL = API_BASE_URL.format("statuses/user_timeline.json")
+TOPICS_URL = API_BASE_URL.format("search/tweets.json")
 
 env = os.environ
 
@@ -53,4 +57,40 @@ class Twitter(BaseOAuth):
             params[k] = v
 
         content = self.request(TWEETS_URL, params=params)
+        return json.loads(content)
+
+    def get_topic_tweets(self, topic=None, hashtag=True, **kwargs):
+        if not topic:
+            logger.error("Twitter: a topic must be provided.")
+            return []
+
+        q = topic
+        if hashtag and q[0] != "#":
+            q = "%23" + q
+        q = q.lower()
+
+        params = {
+            "q": q
+        }
+
+        for k, v in kwargs.iteritems():
+            params[k] = v
+
+        content = self.request(TOPICS_URL, params=params)
+        return json.loads(content)
+
+    def get_country_code(self, query=None, **kwargs):
+        if not query:
+            logger.error("Twitter: a query must be provided to search for a geocode.")
+            return []
+
+        params = {
+            "query": query
+        }
+
+        for k, v in kwargs.iteritems():
+            params[k] = v
+
+        content = self.request(TOPICS_URL, params=params)
+        print content
         return json.loads(content)

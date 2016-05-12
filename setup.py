@@ -11,6 +11,7 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 requires = [
     'alembic',
     'celery',
+    'nltk',
     'oauth2',
     'pymysql',
     'pyramid',

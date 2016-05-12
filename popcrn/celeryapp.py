@@ -12,6 +12,10 @@ from popcrn.models import (
     Tweet
 )
 
+from popcrn.util.task_utils import parse_tweet_datetime
+
+from popcrn.sentiment.analyzer import SentimentAnalyzer
+
 from ConfigParser import SafeConfigParser
 
 from sqlalchemy import create_engine
@@ -22,6 +26,8 @@ from celery import (
 )
 
 from celery.signals import worker_init
+
+sentiment = SentimentAnalyzer()
 
 settings = SafeConfigParser()
 settings.read(os.environ.get("POPCRN_INI", "development.ini"))
@@ -91,15 +97,39 @@ class HarvestTask(Task):
     def persist_tweet(self, tweet):
         if isinstance(tweet, basestring):
             tweet = json.loads(tweet)
-        logger.info("PERSISTING tweet: {}".format(tweet.tweet_id))
-        existing_tweet = self.db.query(Tweet).filter(Tweet.tweet_id == tweet.tweet_id).first()
+        logger.info("PERSISTING tweet: {}".format(tweet["id"]))
+        existing_tweet = self.db.query(Tweet).filter(Tweet.tweet_id == tweet["id"]).first()
+        logger.error("EXISTING TWEET: {}".format(tweet["id"]))
+        if existing_tweet is not None and existing_tweet.tweet_id != tweet["id"]:
+            sentiments = sentiment.generate_mapping(tweet["text"])
+            avg_sentiment = sum(sentiments.values()) / len(sentiments.values())
+            max_sentiment_word = [
+                k for k, v in sentiments.iteritems() if v == max(sentiments.values())
+            ][0]
+            max_sentiment_word_value = sentiments[max_sentiment_word]
 
-        if not existing_tweet:
+            min_sentiment_word = [
+                k for k, v in sentiments.iteritems() if v == min(sentiments.values())
+            ][0]
+            min_sentiment_word_value = sentiments[min_sentiment_word]
+
+            tweet = Tweet(
+                created=parse_tweet_datetime(tweet["created_at"]),
+                user_id=tweet["user"]["id"],
+                tweet_id=tweet["id"],
+                text=tweet["text"],
+                user_screen_name=tweet["user"]["screen_name"],
+                sentiment=avg_sentiment,
+                max_sentiment_word=max_sentiment_word,
+                max_sentiment_word_value=max_sentiment_word_value,
+                min_sentiment_word=min_sentiment_word,
+                min_sentiment_word_value=min_sentiment_word_value
+            )
             self.db.add(tweet)
-            self.info("STORING tweet_record: {}".format(tweet))
+            logger.info("STORING tweet_record: {}".format(tweet["id"]))
             self.commit()
         else:
-            logger.info("NOT PERSISTING tweet: {}. Already ingested.".format(tweet.tweet_id))
+            logger.info("NOT PERSISTING tweet: {}. Already ingested.".format(tweet["id"]))
 
     def persist_tweets(self, tweets=[]):
         for tweet in tweets:

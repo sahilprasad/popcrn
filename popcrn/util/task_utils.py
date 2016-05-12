@@ -4,7 +4,7 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-def validate_tweet_json(self, tweet_json):
+def validate_tweet_json(tweet):
     if not tweet.get("id"):
         logger.info("Tweet has no id: {}".format(tweet))
     elif not tweet.get("text"):
@@ -20,7 +20,7 @@ def validate_tweet_json(self, tweet_json):
 
     return False
 
-def parse_tweet_datetime(self, tweet_datetime):
+def parse_tweet_datetime(tweet_datetime):
     """
         Returns a Datetime object given a typical datetime string given by the
         Twitter API.
