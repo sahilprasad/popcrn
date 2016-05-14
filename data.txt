@@ -1,0 +1,4 @@
+Most of our data requires a query but some sample csv's that were used for the word bubble and the map are found in popcrn/static/data/.
+
+Running the server by itself using a query would result in data as well in json form (which for some queries we changed to csv because
+the d3 visualization needed in order to work).
