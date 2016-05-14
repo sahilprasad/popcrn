@@ -1,11 +1,11 @@
 from sqlalchemy.ext.declarative import declarative_base
 
 import sqlalchemy as sa
-from sqlalchemy.orm import scoped_session, sessionmaker, relationship
+from sqlalchemy.orm import scoped_session, sessionmaker, relationship, backref
 from zope.sqlalchemy import ZopeTransactionExtension
 
 from sqlalchemy import (
-    Column, BigInteger, UnicodeText, DateTime, String, Table, ForeignKey
+    Column, Integer, BigInteger, UnicodeText, DateTime, String, Table, ForeignKey
 )
 
 RawSession = sessionmaker()
@@ -30,7 +30,6 @@ mapping = Table(
 class Tweet(Base):
     __tablename__ = 'tweet'
     tweet_id = Column(String(50), primary_key=True)
-    # user_id = Column(String(50), index=True)
     user_screen_name = Column(String(100))
     created = Column(DateTime, nullable=False)
     text = Column(String(150), nullable=False)
@@ -49,11 +48,11 @@ class Tweet(Base):
         back_populates="tweets"
     )
 
-    # user_id = Column(BigInteger, ForeignKey('user.user_id'))
+    user_id = Column(String(50), ForeignKey('user.user_id'))
 
 class Sentiment(Base):
     __tablename__ = 'sentiment'
-    sentiment_id = Column(String(50), primary_key=True)
+    sentiment_id = Column(Integer, primary_key=True)
     created = Column(DateTime, nullable=False)
     topic = Column(String(100), nullable=False, index=True)
     value = Column(String(100))
@@ -70,4 +69,4 @@ class User(Base):
     location = Column(String(100))
     country_code = Column(String(10), default="US")
 
-    # tweets = relationship('Tweet', backref="user")
+    tweets = relationship('Tweet', backref='user', lazy='dynamic')

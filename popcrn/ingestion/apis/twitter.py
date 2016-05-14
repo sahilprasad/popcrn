@@ -15,6 +15,7 @@ API_BASE_URL = "https://api.twitter.com/1.1/{}"
 USER_PROFILE_URL = API_BASE_URL.format("users/show.json")
 TWEETS_URL = API_BASE_URL.format("statuses/user_timeline.json")
 TOPICS_URL = API_BASE_URL.format("search/tweets.json")
+GEO_URL = API_BASE_URL.format("geo/search.json")
 
 env = os.environ
 
@@ -91,6 +92,6 @@ class Twitter(BaseOAuth):
         for k, v in kwargs.iteritems():
             params[k] = v
 
-        content = self.request(TOPICS_URL, params=params)
+        content = self.request(GEO_URL, params=params)
         print content
         return json.loads(content)

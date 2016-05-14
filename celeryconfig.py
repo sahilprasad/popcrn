@@ -1,4 +1,5 @@
 from kombu import Queue
+from celery.schedules import crontab
 
 import os
 
@@ -41,12 +42,7 @@ CELERY_QUEUES = [
 ]
 
 CELERY_ROUTES = {
-    'popcrn.ingestion.tasks.import_user_tweets': {
-        'queue': 'userimport'
-    },
-    'popcrn.ingestion.tasks.import_tweets': {
-        'queue': 'tweetimport'
-    }
+
 }
 
 CELERYBEAT_SCHEDULE = {

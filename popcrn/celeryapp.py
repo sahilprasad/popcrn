@@ -95,12 +95,11 @@ class HarvestTask(Task):
         return query.all()
 
     def persist_tweet(self, tweet):
-        if isinstance(tweet, basestring):
-            tweet = json.loads(tweet)
-        logger.info("PERSISTING tweet: {}".format(tweet["id"]))
+        tweet_id_orig = tweet["id"]
+        logger.info("PERSISTING tweet: {}".format(tweet_id_orig))
         existing_tweet = self.db.query(Tweet).filter(Tweet.tweet_id == tweet["id"]).first()
-        logger.error("EXISTING TWEET: {}".format(tweet["id"]))
-        if existing_tweet is not None and existing_tweet.tweet_id != tweet["id"]:
+        logger.error("EXISTING TWEET: {}".format(existing_tweet))
+        if existing_tweet is None:
             sentiments = sentiment.generate_mapping(tweet["text"])
             avg_sentiment = sum(sentiments.values()) / len(sentiments.values())
             max_sentiment_word = [
@@ -119,6 +118,7 @@ class HarvestTask(Task):
                 tweet_id=tweet["id"],
                 text=tweet["text"],
                 user_screen_name=tweet["user"]["screen_name"],
+                topic=tweet["topic"],
                 sentiment=avg_sentiment,
                 max_sentiment_word=max_sentiment_word,
                 max_sentiment_word_value=max_sentiment_word_value,
@@ -126,10 +126,10 @@ class HarvestTask(Task):
                 min_sentiment_word_value=min_sentiment_word_value
             )
             self.db.add(tweet)
-            logger.info("STORING tweet_record: {}".format(tweet["id"]))
+            logger.info("STORING tweet_record: {}".format(tweet_id_orig))
             self.commit()
         else:
-            logger.info("NOT PERSISTING tweet: {}. Already ingested.".format(tweet["id"]))
+            logger.info("NOT PERSISTING tweet: {}. Already ingested.".format(tweet_id_orig))
 
     def persist_tweets(self, tweets=[]):
         for tweet in tweets:

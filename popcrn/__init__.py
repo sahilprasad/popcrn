@@ -9,7 +9,7 @@ from models import (
 from views.root import root_view
 from views.hashtag_enqueue import enqueue_topic
 from views.raw_topic_enqueue import raw_topic_enqueue
-from views.country_sentiment import country_sentiment
+from views.country import country_sentiment
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -26,7 +26,5 @@ def main(global_config, **settings):
     config.add_view(enqueue_topic, 'topic')
     config.add_route('raw_topic', '/raw_topic')
     config.add_view(raw_topic_enqueue, 'raw_topic')
-    config.add_route('country', '/country')
-    config.add_view(country_sentiment, 'country')
-    # config.scan()
+    # config.scan() significantly improves the runtime
     return config.make_wsgi_app()

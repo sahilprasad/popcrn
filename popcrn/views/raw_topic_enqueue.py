@@ -76,7 +76,7 @@ def persist_tweet(tweet, topic):
     tweet_id_orig = tweet["id"]
     logger.info("PERSISTING tweet: {}".format(tweet["id"]))
     existing_tweet = db.query(Tweet).filter(Tweet.tweet_id == tweet["id"]).first()
-    logger.error("EXISTING TWEET: {}".format(tweet["id"]))
+    logger.error("EXISTING TWEET: {}".format(existing_tweet))
     if existing_tweet is None:
         sentiments = sentiment.generate_mapping(tweet["text"])
         avg_sentiment = sum(sentiments.values()) / len(sentiments.values())

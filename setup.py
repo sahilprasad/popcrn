@@ -13,6 +13,7 @@ requires = [
     'celery',
     'nltk',
     'oauth2',
+    'pycountry',
     'pymysql',
     'pyramid',
     'pyramid_chameleon',
