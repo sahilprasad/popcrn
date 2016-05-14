@@ -173,16 +173,6 @@
       id = decodeURIComponent(location.hash.substring(1)).trim();
       return updateActive(id);
     };
-    updateActive = function(id) {
-      node.classed("bubble-selected", function(d) {
-        return id === idValue(d);
-      });
-      if (id.length > 0) {
-        return d3.select("#status").html("<h3>The word <span class=\"active\">" + id + "</span> is now active</h3>");
-      } else {
-        return d3.select("#status").html("<h3>No word is active</h3>");
-      }
-    };
     mouseover = function(d) {
       return node.classed("bubble-hover", function(p) {
         return p === d;

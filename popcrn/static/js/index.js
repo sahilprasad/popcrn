@@ -7,10 +7,11 @@ $(document).ready(function() {
       alert("Enter a valid query into the search box!");
     } else {
       console.log("Post request!");
-      $.get("http://localhost:6543/raw_topic/?topic=" + val, function(response) {
-        console.log("got a response");
-        console.log(response);
-      });
+      $.post("http://localhost:6543/?topic=" + val, {"text":text}, function(data) {
+				console.log(data);
+                mapcreate(data);
+			});
+
     }
   });
 });
