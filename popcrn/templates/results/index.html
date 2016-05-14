@@ -7,7 +7,7 @@
 
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../static/css/map.css">
+                <link href="../../static/css/popcrn.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
         <style>
@@ -33,9 +33,9 @@
           stroke: #333;
           stroke-width: 1px; }
 
-          /*.map {
-              width: 100 %;
-          }*/
+          .map {
+              width: 80 %;
+          }
 
           .navbar {
             position: relative;
@@ -43,6 +43,12 @@
             margin-bottom: 20px;
             border: 1px solid transparent;
         }
+
+        body {
+          font-family: Helvetica !important;
+          font-size: 14px !important;
+        }
+
 
           </style>
     </head>
@@ -57,7 +63,7 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
            </button>
-           <a class="navbar-brand" href="#">Popcorn</a>
+           <a class="navbar-brand" href="../index.html">Popcrn</a>
          </div>
          <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav">
@@ -70,7 +76,20 @@
 
  <div class="container">
 
-     <div id="map"></div>
+     <div id="overlay">
+         <div id="map"></div>
+     </div>
+     <div id="hey"><div id="layer-up"></div></div>
+     <div id="layer-0">
+
+         <div id="layer-1">
+             <div id="layer-2">
+                 <div id="lines">
+                     <div id="layer-corner"></div>
+                 </div>
+             </div>
+         </div>
+     </div>
 
  </div> <!-- /container -->
 
